@@ -1,19 +1,19 @@
 {
   "index_patterns": [
-    "logs-mysql.error-*"
+    "rally-apache.error-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-mysql.error-1.1.0"
+        "default_pipeline": "logs-apache.error-1.3.0"
         {%- endif %}
       }
     },
     "mappings": {
       "_meta": {
         "package": {
-          "name": "mysql"
+          "name": "apache"
         },
         "managed_by": "ingest-manager",
         "managed": true
@@ -31,6 +31,158 @@
       ],
       "date_detection": false,
       "properties": {
+        "container": {
+          "properties": {
+            "image": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "labels": {
+              "type": "object"
+            }
+          }
+        },
+        "process": {
+          "properties": {
+            "pid": {
+              "type": "long"
+            },
+            "thread": {
+              "properties": {
+                "id": {
+                  "type": "long"
+                }
+              }
+            }
+          }
+        },
+        "log": {
+          "properties": {
+            "file": {
+              "properties": {
+                "path": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "offset": {
+              "type": "long"
+            },
+            "level": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "source": {
+          "properties": {
+            "geo": {
+              "properties": {
+                "continent_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "city_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "region_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "as": {
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "address": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "port": {
+              "type": "long"
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "error": {
+          "properties": {
+            "message": {
+              "type": "match_only_text"
+            }
+          }
+        },
+        "message": {
+          "type": "match_only_text"
+        },
+        "url": {
+          "properties": {
+            "path": {
+              "type": "wildcard"
+            },
+            "extension": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "original": {
+              "type": "wildcard"
+            },
+            "domain": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "query": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "tags": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
         "cloud": {
           "properties": {
             "availability_zone": {
@@ -91,29 +243,6 @@
             }
           }
         },
-        "container": {
-          "properties": {
-            "image": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "id": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "labels": {
-              "type": "object"
-            }
-          }
-        },
         "input": {
           "properties": {
             "type": {
@@ -125,32 +254,29 @@
         "@timestamp": {
           "type": "date"
         },
-        "ecs": {
+        "file": {
           "properties": {
-            "version": {
+            "path": {
               "ignore_above": 1024,
               "type": "keyword"
             }
           }
         },
-        "log": {
+        "apache": {
           "properties": {
-            "file": {
+            "error": {
               "properties": {
-                "path": {
+                "module": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
               }
-            },
-            "offset": {
-              "type": "long"
-            },
-            "level": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "flags": {
+            }
+          }
+        },
+        "ecs": {
+          "properties": {
+            "version": {
               "ignore_above": 1024,
               "type": "keyword"
             }
@@ -244,40 +370,53 @@
             }
           }
         },
-        "mysql": {
+        "http": {
           "properties": {
-            "thread_id": {
-              "type": "long"
+            "request": {
+              "properties": {
+                "referrer": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "method": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
-            "error": {
-              "properties": {}
+            "response": {
+              "properties": {
+                "status_code": {
+                  "type": "long"
+                },
+                "body": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         },
         "event": {
           "properties": {
-            "code": {
+            "kind": {
               "ignore_above": 1024,
               "type": "keyword"
-            },
-            "provider": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "created": {
-              "type": "date"
             },
             "timezone": {
               "ignore_above": 1024,
               "type": "keyword"
             },
-            "kind": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
             "module": {
               "type": "constant_keyword",
-              "value": "mysql"
+              "value": "apache"
             },
             "category": {
               "ignore_above": 1024,
@@ -289,26 +428,59 @@
             },
             "dataset": {
               "type": "constant_keyword",
-              "value": "mysql.error"
+              "value": "apache.error"
             }
           }
         },
-        "message": {
-          "type": "match_only_text"
+        "user": {
+          "properties": {
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "user_agent": {
+          "properties": {
+            "original": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "os": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "device": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
         }
       }
     }
   },
   "composed_of": [
-    "logs-mysql.error@settings",
-    "logs-mysql.error@custom",
-    ".fleet_component_template-1",
+    "rally-apache.error@settings",
+    "rally-apache.error@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,
   "_meta": {
     "package": {
-      "name": "mysql"
+      "name": "apache"
     },
     "managed_by": "ingest-manager",
     "managed": true

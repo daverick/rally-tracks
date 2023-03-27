@@ -1,12 +1,12 @@
 {
   "index_patterns": [
-    "logs-system.auth-*"
+    "rally-system.syslog-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-system.auth-1.6.4"
+        "default_pipeline": "logs-system.syslog-1.6.4"
         {%- endif %}
       }
     },
@@ -31,110 +31,6 @@
       ],
       "date_detection": false,
       "properties": {
-        "container": {
-          "properties": {
-            "image": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "id": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "labels": {
-              "type": "object"
-            }
-          }
-        },
-        "process": {
-          "properties": {
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "pid": {
-              "type": "long"
-            }
-          }
-        },
-        "source": {
-          "properties": {
-            "geo": {
-              "properties": {
-                "continent_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "region_iso_code": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "city_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "country_iso_code": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "country_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "location": {
-                  "type": "geo_point"
-                },
-                "region_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "as": {
-              "properties": {
-                "number": {
-                  "type": "long"
-                },
-                "organization": {
-                  "properties": {
-                    "name": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
-                }
-              }
-            },
-            "port": {
-              "type": "long"
-            },
-            "ip": {
-              "type": "ip"
-            }
-          }
-        },
-        "error": {
-          "properties": {
-            "message": {
-              "type": "match_only_text"
-            }
-          }
-        },
-        "message": {
-          "type": "match_only_text"
-        },
-        "version": {
-          "ignore_above": 1024,
-          "type": "keyword"
-        },
         "cloud": {
           "properties": {
             "availability_zone": {
@@ -195,96 +91,53 @@
             }
           }
         },
+        "container": {
+          "properties": {
+            "image": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "labels": {
+              "type": "object"
+            }
+          }
+        },
+        "process": {
+          "properties": {
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "pid": {
+              "type": "long"
+            }
+          }
+        },
         "@timestamp": {
           "type": "date"
         },
         "system": {
           "properties": {
-            "auth": {
-              "properties": {
-                "ssh": {
-                  "properties": {
-                    "geoip": {
-                      "properties": {}
-                    },
-                    "method": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "dropped_ip": {
-                      "type": "ip"
-                    },
-                    "signature": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "event": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "sudo": {
-                  "properties": {
-                    "tty": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "error": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "pwd": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "user": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "command": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "useradd": {
-                  "properties": {
-                    "shell": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "home": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "groupadd": {
-                  "properties": {}
-                }
-              }
+            "syslog": {
+              "properties": {}
             }
           }
         },
         "ecs": {
           "properties": {
             "version": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "related": {
-          "properties": {
-            "hosts": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "ip": {
-              "type": "ip"
-            },
-            "user": {
               "ignore_above": 1024,
               "type": "keyword"
             }
@@ -424,7 +277,7 @@
             },
             "dataset": {
               "type": "constant_keyword",
-              "value": "system.auth"
+              "value": "system.syslog"
             },
             "outcome": {
               "ignore_above": 1024,
@@ -432,45 +285,16 @@
             }
           }
         },
-        "user": {
-          "properties": {
-            "effective": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "id": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "group": {
-          "properties": {
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "id": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
+        "message": {
+          "type": "match_only_text"
         }
       }
     }
   },
   "composed_of": [
-    "logs-system.auth@settings",
-    "logs-system.auth@custom",
-    ".fleet_component_template-1",
+    "rally-system.syslog@settings",
+    "rally-system.syslog@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,

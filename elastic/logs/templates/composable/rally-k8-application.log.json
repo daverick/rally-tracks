@@ -1,12 +1,12 @@
 {
   "index_patterns": [
-    "logs-k8-application.log-*"
+    "rally-k8-application.log-*"
   ],
   "template": {
     "settings": {
       "index": {
         "lifecycle": {
-          "name": "logs"
+          "name": "rally"
         },
         "codec": "best_compression",
         "mapping": {
@@ -1999,7 +1999,7 @@
     }
   },
   "composed_of": [
-    "logs-mappings",
+    "rally-mappings",
     "track-custom-mappings"
   ],
   "priority": 200,

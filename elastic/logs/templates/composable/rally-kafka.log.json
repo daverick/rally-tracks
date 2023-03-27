@@ -1,6 +1,6 @@
 {
   "index_patterns": [
-    "logs-kafka.log-*"
+    "rally-kafka.log-*"
   ],
   "template": {
     "settings": {
@@ -282,9 +282,9 @@
     }
   },
   "composed_of": [
-    "logs-kafka.log@settings",
-    "logs-kafka.log@custom",
-    ".fleet_component_template-1",
+    "rally-kafka.log@settings",
+    "rally-kafka.log@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,

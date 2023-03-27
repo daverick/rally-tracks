@@ -1,19 +1,19 @@
 {
   "index_patterns": [
-    "logs-postgresql.log-*"
+    "rally-redis.log-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-postgresql.log-1.2.0"
+        "default_pipeline": "logs-redis.log-1.1.0"
         {%- endif %}
       }
     },
     "mappings": {
       "_meta": {
         "package": {
-          "name": "postgresql"
+          "name": "redis"
         },
         "managed_by": "ingest-manager",
         "managed": true
@@ -69,21 +69,25 @@
             }
           }
         },
+        "error": {
+          "properties": {
+            "message": {
+              "type": "match_only_text"
+            }
+          }
+        },
         "message": {
           "type": "match_only_text"
         },
-        "error": {
+        "redis": {
           "properties": {
-            "code": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "id": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "message": {
-              "type": "match_only_text"
+            "log": {
+              "properties": {
+                "role": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             }
           }
         },
@@ -154,113 +158,11 @@
         "@timestamp": {
           "type": "date"
         },
-        "related": {
-          "properties": {
-            "user": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
         "ecs": {
           "properties": {
             "version": {
               "ignore_above": 1024,
               "type": "keyword"
-            }
-          }
-        },
-        "postgresql": {
-          "properties": {
-            "log": {
-              "properties": {
-                "transaction_id": {
-                  "type": "long"
-                },
-                "backend_type": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "sql_state_code": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "query": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "session_start_time": {
-                  "type": "date"
-                },
-                "session_id": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "command_tag": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "query_pos": {
-                  "type": "long"
-                },
-                "internal_query_pos": {
-                  "type": "long"
-                },
-                "client_port": {
-                  "type": "long"
-                },
-                "database": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "virtual_transaction_id": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "application_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "query_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "hint": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "client_addr": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "context": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "session_line_number": {
-                  "type": "long"
-                },
-                "query_step": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "location": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "detail": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "internal_query": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "timestamp": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
             }
           }
         },
@@ -354,47 +256,16 @@
         },
         "event": {
           "properties": {
-            "duration": {
-              "type": "long"
-            },
-            "ingested": {
+            "created": {
               "type": "date"
-            },
-            "code": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "kind": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "timezone": {
-              "ignore_above": 1024,
-              "type": "keyword"
             },
             "module": {
               "type": "constant_keyword",
-              "value": "postgresql"
-            },
-            "category": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "type": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "value": "redis"
             },
             "dataset": {
               "type": "constant_keyword",
-              "value": "postgresql.log"
-            }
-          }
-        },
-        "user": {
-          "properties": {
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "value": "redis.log"
             }
           }
         }
@@ -402,15 +273,15 @@
     }
   },
   "composed_of": [
-    "logs-postgresql.log@settings",
-    "logs-postgresql.log@custom",
-    ".fleet_component_template-1",
+    "rally-redis.log@settings",
+    "rally-redis.log@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,
   "_meta": {
     "package": {
-      "name": "postgresql"
+      "name": "redis"
     },
     "managed_by": "ingest-manager",
     "managed": true

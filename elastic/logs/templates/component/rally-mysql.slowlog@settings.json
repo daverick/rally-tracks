@@ -3,7 +3,7 @@
     "settings": {
       "index": {
         "lifecycle": {
-          "name": "logs"
+          "name": "rally"
         },
         "codec": "best_compression",
         "mapping": {
@@ -39,10 +39,19 @@
             "host.type",
             "host.os.build",
             "host.os.codename",
+            "input.type",
+            "log.flags",
             "ecs.version",
-            "log.level",
-            "tags",
-            "redis.log.role"
+            "source.domain",
+            "user.name",
+            "log.file.path",
+            "mysql.slowlog.query",
+            "mysql.slowlog.schema",
+            "mysql.slowlog.current_user",
+            "mysql.slowlog.last_errno",
+            "mysql.slowlog.killed",
+            "mysql.slowlog.log_slow_rate_type",
+            "mysql.slowlog.innodb.trx_id"
           ]
         }
       }
@@ -50,7 +59,7 @@
   },
   "_meta": {
     "package": {
-      "name": "redis"
+      "name": "mysql"
     }
   }
 }

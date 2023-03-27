@@ -1,19 +1,19 @@
 {
   "index_patterns": [
-    "logs-redis.log-*"
+    "rally-nginx.access-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-redis.log-1.1.0"
+        "default_pipeline": "logs-nginx.access-1.2.0"
         {%- endif %}
       }
     },
     "mappings": {
       "_meta": {
         "package": {
-          "name": "redis"
+          "name": "nginx"
         },
         "managed_by": "ingest-manager",
         "managed": true
@@ -54,40 +54,126 @@
             }
           }
         },
-        "process": {
+        "nginx": {
           "properties": {
-            "pid": {
-              "type": "long"
+            "access": {
+              "properties": {
+                "geoip": {
+                  "properties": {}
+                }
+              }
             }
           }
         },
         "log": {
           "properties": {
-            "level": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "error": {
-          "properties": {
-            "message": {
-              "type": "match_only_text"
-            }
-          }
-        },
-        "message": {
-          "type": "match_only_text"
-        },
-        "redis": {
-          "properties": {
-            "log": {
+            "file": {
               "properties": {
-                "role": {
+                "path": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
               }
+            },
+            "offset": {
+              "type": "long"
+            }
+          }
+        },
+        "destination": {
+          "properties": {
+            "port": {
+              "type": "long"
+            },
+            "domain": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "source": {
+          "properties": {
+            "geo": {
+              "properties": {
+                "continent_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "city_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "region_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "as": {
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "address": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "url": {
+          "properties": {
+            "path": {
+              "type": "wildcard"
+            },
+            "extension": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "fragment": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "original": {
+              "type": "wildcard"
+            },
+            "scheme": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "domain": {
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         },
@@ -155,6 +241,14 @@
             }
           }
         },
+        "input": {
+          "properties": {
+            "type": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
         "@timestamp": {
           "type": "date"
         },
@@ -163,6 +257,13 @@
             "version": {
               "ignore_above": 1024,
               "type": "keyword"
+            }
+          }
+        },
+        "related": {
+          "properties": {
+            "ip": {
+              "type": "ip"
             }
           }
         },
@@ -254,6 +355,40 @@
             }
           }
         },
+        "http": {
+          "properties": {
+            "request": {
+              "properties": {
+                "referrer": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "method": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "response": {
+              "properties": {
+                "status_code": {
+                  "type": "long"
+                },
+                "body": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
         "event": {
           "properties": {
             "created": {
@@ -261,11 +396,59 @@
             },
             "module": {
               "type": "constant_keyword",
-              "value": "redis"
+              "value": "nginx"
             },
             "dataset": {
               "type": "constant_keyword",
-              "value": "redis.log"
+              "value": "nginx.access"
+            }
+          }
+        },
+        "user": {
+          "properties": {
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "user_agent": {
+          "properties": {
+            "original": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "os": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "version": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "full": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "device": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         }
@@ -273,15 +456,15 @@
     }
   },
   "composed_of": [
-    "logs-redis.log@settings",
-    "logs-redis.log@custom",
-    ".fleet_component_template-1",
+    "rally-nginx.access@settings",
+    "rally-nginx.access@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,
   "_meta": {
     "package": {
-      "name": "redis"
+      "name": "nginx"
     },
     "managed_by": "ingest-manager",
     "managed": true

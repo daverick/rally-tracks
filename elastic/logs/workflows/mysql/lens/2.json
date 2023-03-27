@@ -1,6 +1,6 @@
 {
   "id": "Create New Lens",
-  "name": "POST /api/lens/existing_fields/logs-*",
+  "name": "POST /api/lens/existing_fields/rally-*",
   "requests": [
     {
       "name": "sleep",

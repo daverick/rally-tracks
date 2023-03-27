@@ -1,19 +1,19 @@
 {
   "index_patterns": [
-    "logs-redis.slowlog-*"
+    "rally-nginx.error-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-redis.slowlog-1.1.0"
+        "default_pipeline": "logs-nginx.error-1.2.0"
         {%- endif %}
       }
     },
     "mappings": {
       "_meta": {
         "package": {
-          "name": "redis"
+          "name": "nginx"
         },
         "managed_by": "ingest-manager",
         "managed": true
@@ -31,6 +31,80 @@
       ],
       "date_detection": false,
       "properties": {
+        "container": {
+          "properties": {
+            "image": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "labels": {
+              "type": "object"
+            }
+          }
+        },
+        "process": {
+          "properties": {
+            "pid": {
+              "type": "long"
+            },
+            "thread": {
+              "properties": {
+                "id": {
+                  "type": "long"
+                }
+              }
+            }
+          }
+        },
+        "nginx": {
+          "properties": {
+            "error": {
+              "properties": {
+                "connection_id": {
+                  "type": "long"
+                }
+              }
+            }
+          }
+        },
+        "log": {
+          "properties": {
+            "file": {
+              "properties": {
+                "path": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "offset": {
+              "type": "long"
+            },
+            "level": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "message": {
+          "type": "match_only_text"
+        },
+        "tags": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
         "cloud": {
           "properties": {
             "availability_zone": {
@@ -91,31 +165,24 @@
             }
           }
         },
-        "container": {
+        "input": {
           "properties": {
-            "image": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
+            "type": {
               "ignore_above": 1024,
               "type": "keyword"
-            },
-            "id": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "labels": {
-              "type": "object"
             }
           }
         },
         "@timestamp": {
           "type": "date"
+        },
+        "ecs": {
+          "properties": {
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
         },
         "data_stream": {
           "properties": {
@@ -212,41 +279,11 @@
             },
             "module": {
               "type": "constant_keyword",
-              "value": "redis"
+              "value": "nginx"
             },
             "dataset": {
               "type": "constant_keyword",
-              "value": "redis.slowlog"
-            }
-          }
-        },
-        "redis": {
-          "properties": {
-            "slowlog": {
-              "properties": {
-                "duration": {
-                  "properties": {
-                    "us": {
-                      "type": "long"
-                    }
-                  }
-                },
-                "args": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "cmd": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "id": {
-                  "type": "long"
-                },
-                "key": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
+              "value": "nginx.error"
             }
           }
         }
@@ -254,15 +291,15 @@
     }
   },
   "composed_of": [
-    "logs-redis.slowlog@settings",
-    "logs-redis.slowlog@custom",
-    ".fleet_component_template-1",
+    "rally-nginx.error@settings",
+    "rally-nginx.error@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,
   "_meta": {
     "package": {
-      "name": "redis"
+      "name": "nginx"
     },
     "managed_by": "ingest-manager",
     "managed": true

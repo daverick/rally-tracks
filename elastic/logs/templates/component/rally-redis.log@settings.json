@@ -3,7 +3,7 @@
     "settings": {
       "index": {
         "lifecycle": {
-          "name": "logs"
+          "name": "rally"
         },
         "codec": "best_compression",
         "mapping": {
@@ -39,37 +39,10 @@
             "host.type",
             "host.os.build",
             "host.os.codename",
-            "input.type",
-            "tags",
             "ecs.version",
-            "event.category",
-            "event.kind",
-            "event.timezone",
-            "event.type",
-            "file.path",
-            "http.request.method",
-            "http.request.referrer",
-            "http.version",
-            "log.file.path",
             "log.level",
-            "source.address",
-            "source.as.organization.name",
-            "source.geo.city_name",
-            "source.geo.continent_name",
-            "source.geo.country_iso_code",
-            "source.geo.country_name",
-            "source.geo.region_iso_code",
-            "source.geo.region_name",
             "tags",
-            "url.domain",
-            "url.extension",
-            "url.query",
-            "user.name",
-            "user_agent.device.name",
-            "user_agent.name",
-            "user_agent.original",
-            "user_agent.os.name",
-            "apache.error.module"
+            "redis.log.role"
           ]
         }
       }
@@ -77,7 +50,7 @@
   },
   "_meta": {
     "package": {
-      "name": "apache"
+      "name": "redis"
     }
   }
 }

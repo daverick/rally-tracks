@@ -22,7 +22,7 @@
         "operation-type": "mount-searchable-snapshot",
         "repository": "{{ p_snapshot_repo_name }}",
         "snapshot": "{{ p_snapshot_name }}",
-        "index_pattern": ".ds-logs-*",
+        "index_pattern": ".ds-rally-*",
         "rename_pattern": "^.ds-",
         "rename_replacement": "",
         "storage": "shared_cache",

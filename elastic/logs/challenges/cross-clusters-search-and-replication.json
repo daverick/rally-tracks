@@ -32,7 +32,7 @@
         "name": "setup-ccr-on-remote-clusters",
         "operation": {
           "operation-type": "configure-ccr",
-          "index": "logs-*",
+          "index": "rally-*",
           "source-cluster": "default"
         }
     },

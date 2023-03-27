@@ -3,7 +3,7 @@
     "settings": {
       "index": {
         "lifecycle": {
-          "name": "logs"
+          "name": "rally"
         },
         "codec": "best_compression",
         "mapping": {
@@ -42,12 +42,18 @@
             "input.type",
             "destination.domain",
             "ecs.version",
+            "event.category",
+            "event.kind",
+            "event.outcome",
+            "file.path",
             "http.request.method",
             "http.request.referrer",
             "http.version",
             "log.file.path",
+            "log.level",
             "source.address",
             "source.as.organization.name",
+            "source.domain",
             "source.geo.city_name",
             "source.geo.continent_name",
             "source.geo.country_iso_code",
@@ -55,18 +61,26 @@
             "source.geo.region_iso_code",
             "source.geo.region_name",
             "tags",
+            "tls.cipher",
+            "tls.version",
+            "tls.version_protocol",
             "url.domain",
             "url.extension",
-            "url.fragment",
-            "url.scheme",
+            "url.query",
             "user.name",
             "user_agent.device.name",
+            "user_agent.device.name",
             "user_agent.name",
+            "user_agent.name",
+            "user_agent.original",
             "user_agent.original",
             "user_agent.os.full",
             "user_agent.os.name",
+            "user_agent.os.name",
             "user_agent.os.version",
-            "user_agent.version"
+            "user_agent.version",
+            "apache.access.ssl.protocol",
+            "apache.access.ssl.cipher"
           ]
         }
       }
@@ -74,7 +88,7 @@
   },
   "_meta": {
     "package": {
-      "name": "nginx"
+      "name": "apache"
     }
   }
 }
