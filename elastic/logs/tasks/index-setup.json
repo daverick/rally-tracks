@@ -19,17 +19,20 @@
 {
   "name": "delete-all-datastreams",
   "tags": ["setup"],
-  "operation": "delete-data-stream"
+  "operation": "delete-data-stream",
+  "data-stream": "rally-*"
 },
 {
   "name": "delete-all-composable-templates",
   "tags": ["setup"],
-  "operation": "delete-composable-template"
+  "operation": "delete-composable-template",
+  "template": "rally-*"
 },
 {
   "name": "delete-all-component-templates",
   "tags": ["setup"],
-  "operation": "delete-component-template"
+  "operation": "delete-component-template",
+  "template": "rally-*"
 },
 {
   "name": "create-all-component-templates",
@@ -39,7 +42,8 @@
     "param-source": "component-template-source",
     "remove-routing-shards": true,
     "remove-pipelines": false
-  }
+  },
+  "template": "rally-*"
 },
 {
   "name": "create-all-composable-templates",
@@ -49,14 +53,16 @@
     "param-source": "composable-template-source",
     "remove-routing-shards": true,
     "remove-pipelines": false
-  }
+  },
+  "template": "rally-*"
 },
 {
   "name": "create-required-data-streams",
   "tags": ["setup"],
   "operation": {
     "operation-type": "create-data-stream"
-  }
+  },
+  "data-stream": "rally-*"
 },
 {
   "name": "validate-package-template-installation",
@@ -106,7 +112,6 @@
     }
   }
 },
-
 {
   "name": "check-cluster-health",
   "operation": {

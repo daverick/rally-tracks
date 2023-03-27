@@ -34,7 +34,7 @@
     "readonly": snapshot_repo_readonly | default(false)
 }))%}
 {% set p_snapshot_name = (snapshot_name | default("logging-test")) %}
-{% set p_restore_data_streams = (restore_data_streams | default("logs-*")) %}
+{% set p_restore_data_streams = (restore_data_streams | default("rally-*")) %}
 {% set p_snapshot_metadata = (snapshot_metadata | default({}))%}
 {% set p_snapshot_rename_suffix = (snapshot_rename_suffix | default("") ) %}
 
@@ -144,145 +144,145 @@
   },
   "data-streams": [
     {
-      "name": "logs-kafka.log-default"
+      "name": "rally-kafka.log-default"
     },
     {
-      "name": "logs-nginx.access-default"
+      "name": "rally-nginx.access-default"
     },
     {
-      "name": "logs-nginx.error-default"
+      "name": "rally-nginx.error-default"
     },
     {
-      "name": "logs-k8-application.log-default"
+      "name": "rally-k8-application.log-default"
     },
     {
-      "name": "logs-mysql.slowlog-default"
+      "name": "rally-mysql.slowlog-default"
     },
     {
-      "name": "logs-mysql.error-default"
+      "name": "rally-mysql.error-default"
     },
     {
-      "name": "logs-system.auth-default"
+      "name": "rally-system.auth-default"
     },
     {
-      "name": "logs-system.syslog-default"
+      "name": "rally-system.syslog-default"
     },
     {
-      "name": "logs-postgresql.log-default"
+      "name": "rally-postgresql.log-default"
     },
     {
-      "name": "logs-apache.access-default"
+      "name": "rally-apache.access-default"
     },
     {
-      "name": "logs-apache.error-default"
+      "name": "rally-apache.error-default"
     },
     {
-      "name": "logs-redis.log-default"
+      "name": "rally-redis.log-default"
     },
     {
-      "name": "logs-redis.slowlog-default"
+      "name": "rally-redis.slowlog-default"
     }
   ],
   "component-templates": [
     {
-        "name": ".fleet_component_template-1",
-        "template": "./templates/component/.fleet_component_template-1.json"
+        "name": ".fleet_component_template-1-rally",
+        "template": "./templates/component/.fleet_component_template-1-rally.json"
     },
     {
-        "name": "logs-apache.access@settings",
-        "template": "./templates/component/logs-apache.access@settings.json"
+        "name": "rally-apache.access@settings",
+        "template": "./templates/component/rally-apache.access@settings.json"
     },
     {
-        "name": "logs-apache.access@custom",
-        "template": "./templates/component/logs-apache.access@custom.json"
+        "name": "rally-apache.access@custom",
+        "template": "./templates/component/rally-apache.access@custom.json"
     },
     {
-        "name": "logs-apache.error@settings",
-        "template": "./templates/component/logs-apache.error@settings.json"
+        "name": "rally-apache.error@settings",
+        "template": "./templates/component/rally-apache.error@settings.json"
     },
     {
-        "name": "logs-apache.error@custom",
-        "template": "./templates/component/logs-apache.error@custom.json"
+        "name": "rally-apache.error@custom",
+        "template": "./templates/component/rally-apache.error@custom.json"
     },
     {
-        "name": "logs-kafka.log@settings",
-        "template": "./templates/component/logs-kafka.log@settings.json"
+        "name": "rally-kafka.log@settings",
+        "template": "./templates/component/rally-kafka.log@settings.json"
     },
     {
-        "name": "logs-kafka.log@custom",
-        "template": "./templates/component/logs-kafka.log@custom.json"
+        "name": "rally-kafka.log@custom",
+        "template": "./templates/component/rally-kafka.log@custom.json"
     },
     {
-        "name": "logs-mysql.error@settings",
-        "template": "./templates/component/logs-mysql.error@settings.json"
+        "name": "rally-mysql.error@settings",
+        "template": "./templates/component/rally-mysql.error@settings.json"
     },
     {
-        "name": "logs-mysql.error@custom",
-        "template": "./templates/component/logs-mysql.error@custom.json"
+        "name": "rally-mysql.error@custom",
+        "template": "./templates/component/rally-mysql.error@custom.json"
     },
     {
-        "name": "logs-mysql.slowlog@settings",
-        "template": "./templates/component/logs-mysql.slowlog@settings.json"
+        "name": "rally-mysql.slowlog@settings",
+        "template": "./templates/component/rally-mysql.slowlog@settings.json"
     },
     {
-        "name": "logs-mysql.slowlog@custom",
-        "template": "./templates/component/logs-mysql.slowlog@custom.json"
+        "name": "rally-mysql.slowlog@custom",
+        "template": "./templates/component/rally-mysql.slowlog@custom.json"
     },
     {
-        "name": "logs-nginx.access@settings",
-        "template": "./templates/component/logs-nginx.access@settings.json"
+        "name": "rally-nginx.access@settings",
+        "template": "./templates/component/rally-nginx.access@settings.json"
     },
     {
-        "name": "logs-nginx.access@custom",
-        "template": "./templates/component/logs-nginx.access@custom.json"
+        "name": "rally-nginx.access@custom",
+        "template": "./templates/component/rally-nginx.access@custom.json"
     },
     {
-        "name": "logs-nginx.error@settings",
-        "template": "./templates/component/logs-nginx.error@settings.json"
+        "name": "rally-nginx.error@settings",
+        "template": "./templates/component/rally-nginx.error@settings.json"
     },
     {
-        "name": "logs-nginx.error@custom",
-        "template": "./templates/component/logs-nginx.error@custom.json"
+        "name": "rally-nginx.error@custom",
+        "template": "./templates/component/rally-nginx.error@custom.json"
     },
     {
-        "name": "logs-postgresql.log@settings",
-        "template": "./templates/component/logs-postgresql.log@settings.json"
+        "name": "rally-postgresql.log@settings",
+        "template": "./templates/component/rally-postgresql.log@settings.json"
     },
     {
-        "name": "logs-postgresql.log@custom",
-        "template": "./templates/component/logs-postgresql.log@custom.json"
+        "name": "rally-postgresql.log@custom",
+        "template": "./templates/component/rally-postgresql.log@custom.json"
     },
     {
-        "name": "logs-redis.log@settings",
-        "template": "./templates/component/logs-redis.log@settings.json"
+        "name": "rally-redis.log@settings",
+        "template": "./templates/component/rally-redis.log@settings.json"
     },
     {
-        "name": "logs-redis.log@custom",
-        "template": "./templates/component/logs-redis.log@custom.json"
+        "name": "rally-redis.log@custom",
+        "template": "./templates/component/rally-redis.log@custom.json"
     },
     {
-        "name": "logs-redis.slowlog@settings",
-        "template": "./templates/component/logs-redis.slowlog@settings.json"
+        "name": "rally-redis.slowlog@settings",
+        "template": "./templates/component/rally-redis.slowlog@settings.json"
     },
     {
-        "name": "logs-redis.slowlog@custom",
-        "template": "./templates/component/logs-redis.slowlog@custom.json"
+        "name": "rally-redis.slowlog@custom",
+        "template": "./templates/component/rally-redis.slowlog@custom.json"
     },
     {
-        "name": "logs-system.auth@settings",
-        "template": "./templates/component/logs-system.auth@settings.json"
+        "name": "rally-system.auth@settings",
+        "template": "./templates/component/rally-system.auth@settings.json"
     },
     {
-        "name": "logs-system.auth@custom",
-        "template": "./templates/component/logs-system.auth@custom.json"
+        "name": "rally-system.auth@custom",
+        "template": "./templates/component/rally-system.auth@custom.json"
     },
     {
-        "name": "logs-system.syslog@settings",
-        "template": "./templates/component/logs-system.syslog@settings.json"
+        "name": "rally-system.syslog@settings",
+        "template": "./templates/component/rally-system.syslog@settings.json"
     },
     {
-        "name": "logs-system.syslog@custom",
-        "template": "./templates/component/logs-system.syslog@custom.json"
+        "name": "rally-system.syslog@custom",
+        "template": "./templates/component/rally-system.syslog@custom.json"
     },
     {
         "name": "track-custom-mappings",
@@ -295,82 +295,82 @@
   ],
   "composable-templates": [
     {
-        "name": "logs-kafka.log",
-        "index-pattern": "logs-kafka.log-*",
+        "name": "rally-kafka.log",
+        "index-pattern": "rally-kafka.log-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-kafka.log.json"
+        "template": "./templates/composable/rally-kafka.log.json"
     },
     {
-        "name": "logs-nginx.access",
-        "index-pattern": "logs-nginx.access-*",
+        "name": "rally-nginx.access",
+        "index-pattern": "rally-nginx.access-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-nginx.access.json"
+        "template": "./templates/composable/rally-nginx.access.json"
     },
     {
-        "name": "logs-nginx.error",
-        "index-pattern": "logs-nginx.error-*",
+        "name": "rally-nginx.error",
+        "index-pattern": "rally-nginx.error-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-nginx.error.json"
+        "template": "./templates/composable/rally-nginx.error.json"
     },
     {
-        "name": "logs-k8-application.log",
-        "index-pattern": "logs-k8-application.log-*",
+        "name": "rally-k8-application.log",
+        "index-pattern": "rally-k8-application.log-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-k8-application.log.json"
+        "template": "./templates/composable/rally-k8-application.log.json"
     },
     {
-        "name": "logs-mysql.slowlog",
-        "index-pattern": "logs-mysql.slowlog-*",
+        "name": "rally-mysql.slowlog",
+        "index-pattern": "rally-mysql.slowlog-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-mysql.slowlog.json"
+        "template": "./templates/composable/rally-mysql.slowlog.json"
     },
     {
-        "name": "logs-mysql.error",
-        "index-pattern": "logs-mysql.error-*",
+        "name": "rally-mysql.error",
+        "index-pattern": "rally-mysql.error-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-mysql.error.json"
+        "template": "./templates/composable/rally-mysql.error.json"
     },
     {
-        "name": "logs-system.auth",
-        "index-pattern": "logs-system.auth-*",
+        "name": "rally-system.auth",
+        "index-pattern": "rally-system.auth-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-system.auth.json"
+        "template": "./templates/composable/rally-system.auth.json"
     },
     {
-        "name": "logs-system.syslog",
-        "index-pattern": "logs-system.syslog-*",
+        "name": "rally-system.syslog",
+        "index-pattern": "rally-system.syslog-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-system.syslog.json"
+        "template": "./templates/composable/rally-system.syslog.json"
     },
     {
-        "name": "logs-postgresql.log",
-        "index-pattern": "logs-postgresql.log-*",
+        "name": "rally-postgresql.log",
+        "index-pattern": "rally-postgresql.log-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-postgresql.log.json"
+        "template": "./templates/composable/rally-postgresql.log.json"
     },
     {
-        "name": "logs-apache.access",
-        "index-pattern": "logs-apache.access-*",
+        "name": "rally-apache.access",
+        "index-pattern": "rally-apache.access-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-apache.access.json"
+        "template": "./templates/composable/rally-apache.access.json"
     },
     {
-        "name": "logs-apache.error",
-        "index-pattern": "logs-apache.error-*",
+        "name": "rally-apache.error",
+        "index-pattern": "rally-apache.error-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-apache.error.json"
+        "template": "./templates/composable/rally-apache.error.json"
     },
     {
-        "name": "logs-redis.log",
-        "index-pattern": "logs-redis.log-*",
+        "name": "rally-redis.log",
+        "index-pattern": "rally-redis.log-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-redis.log.json"
+        "template": "./templates/composable/rally-redis.log.json"
     },
     {
-        "name": "logs-redis.slowlog",
-        "index-pattern": "logs-redis.slowlog-*",
+        "name": "rally-redis.slowlog",
+        "index-pattern": "rally-redis.slowlog-*",
         "delete-matching-indices": false,
-        "template": "./templates/composable/logs-redis.slowlog.json"
+        "template": "./templates/composable/rally-redis.slowlog.json"
     },
     {
         "name": "auditbeat",
@@ -399,7 +399,7 @@
         {% for i in range([p_max_download_per_corpus_gb, 53] | min) %}
           {% if not i == 0 %},{% endif %}
           {
-          "target-data-stream": "logs-kafka.log-default",
+          "target-data-stream": "rally-kafka.log-default",
           "source-file": "document-{{i}}.json.bz2",
           {# These "document-count" values equate to approximately 1GB of de-compressed data. #}
           "document-count": 312333
@@ -414,7 +414,7 @@
         {% for i in range([p_max_download_per_corpus_gb, 80] | min) %}
           {% if not i == 0 %},{% endif %}
           {
-            "target-data-stream": "logs-nginx.access-default",
+            "target-data-stream": "rally-nginx.access-default",
             "source-file": "document-{{i}}.json.bz2",
             "document-count": 277500
           }
@@ -428,7 +428,7 @@
         {% for i in range([p_max_download_per_corpus_gb, 44] | min) %}
           {% if not i == 0 %},{% endif %}
           {
-            "target-data-stream": "logs-nginx.access-default",
+            "target-data-stream": "rally-nginx.access-default",
             "source-file": "document-{{i}}.json.bz2",
             "document-count": 648000
           }
@@ -442,7 +442,7 @@
         {% for i in range([p_max_download_per_corpus_gb, 3] | min) %}
           {% if not i == 0 %},{% endif %}
           {
-            "target-data-stream": "logs-nginx.error-default",
+            "target-data-stream": "rally-nginx.error-default",
             "source-file": "document-{{i}}.json.bz2",
             "document-count": 263000
           }
@@ -456,7 +456,7 @@
         {% for i in range([p_max_download_per_corpus_gb, 2] | min) %}
           {% if not i == 0 %},{% endif %}
           {
-            "target-data-stream": "logs-nginx.error-default",
+            "target-data-stream": "rally-nginx.error-default",
             "source-file": "document-{{i}}.json.bz2",
             "document-count": 591705
           }
@@ -470,7 +470,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 185] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-k8-application.log-default",
+              "target-data-stream": "rally-k8-application.log-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 660000
             }
@@ -484,7 +484,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 17] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-k8-application.log-default",
+              "target-data-stream": "rally-k8-application.log-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 570000
             }
@@ -496,7 +496,7 @@
         "base-url": "{{p_corpora_uri_base}}/observability/logging/mysql/mysql.error/raw",
         "documents": [
           {
-            "target-data-stream": "logs-mysql.error-default",
+            "target-data-stream": "rally-mysql.error-default",
             "source-file": "document-0.json.bz2",
             "document-count": 86390
           }
@@ -509,7 +509,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 8] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-mysql.slowlog-default",
+              "target-data-stream": "rally-mysql.slowlog-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 287000
             }
@@ -523,7 +523,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 10] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-system.auth-default",
+              "target-data-stream": "rally-system.auth-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 666666
             }
@@ -537,7 +537,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 94] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-system.syslog-default",
+              "target-data-stream": "rally-system.syslog-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 645000
             }
@@ -551,7 +551,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 5] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-system.auth-default",
+              "target-data-stream": "rally-system.auth-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 880000
             }
@@ -565,7 +565,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 15] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-system.syslog-default",
+              "target-data-stream": "rally-system.syslog-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 734450
             }
@@ -579,7 +579,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 271] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-postgresql.log-default",
+              "target-data-stream": "rally-postgresql.log-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 285400
             }
@@ -593,7 +593,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 45] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-apache.access-default",
+              "target-data-stream": "rally-apache.access-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 322200
             }
@@ -605,7 +605,7 @@
         "base-url": "{{p_corpora_uri_base}}/observability/logging/apache/apache.error/raw",
         "documents": [
           {
-            "target-data-stream": "logs-apache.error-default",
+            "target-data-stream": "rally-apache.error-default",
             "source-file": "document-0.json.bz2",
             "document-count": 310000
           }
@@ -618,7 +618,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 18] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-redis.log-default",
+              "target-data-stream": "rally-redis.log-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 343090
             }
@@ -632,7 +632,7 @@
           {% for i in range([p_max_download_per_corpus_gb, 3] | min) %}
             {% if not i == 0 %},{% endif %}
             {
-              "target-data-stream": "logs-redis.slowlog-default",
+              "target-data-stream": "rally-redis.slowlog-default",
               "source-file": "document-{{i}}.json.bz2",
               "document-count": 550000
             }

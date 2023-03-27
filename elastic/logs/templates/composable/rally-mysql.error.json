@@ -1,19 +1,19 @@
 {
   "index_patterns": [
-    "logs-nginx.error-*"
+    "rally-mysql.error-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-nginx.error-1.2.0"
+        "default_pipeline": "logs-mysql.error-1.1.0"
         {%- endif %}
       }
     },
     "mappings": {
       "_meta": {
         "package": {
-          "name": "nginx"
+          "name": "mysql"
         },
         "managed_by": "ingest-manager",
         "managed": true
@@ -31,80 +31,6 @@
       ],
       "date_detection": false,
       "properties": {
-        "container": {
-          "properties": {
-            "image": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "id": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "labels": {
-              "type": "object"
-            }
-          }
-        },
-        "process": {
-          "properties": {
-            "pid": {
-              "type": "long"
-            },
-            "thread": {
-              "properties": {
-                "id": {
-                  "type": "long"
-                }
-              }
-            }
-          }
-        },
-        "nginx": {
-          "properties": {
-            "error": {
-              "properties": {
-                "connection_id": {
-                  "type": "long"
-                }
-              }
-            }
-          }
-        },
-        "log": {
-          "properties": {
-            "file": {
-              "properties": {
-                "path": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "offset": {
-              "type": "long"
-            },
-            "level": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "message": {
-          "type": "match_only_text"
-        },
-        "tags": {
-          "ignore_above": 1024,
-          "type": "keyword"
-        },
         "cloud": {
           "properties": {
             "availability_zone": {
@@ -165,6 +91,29 @@
             }
           }
         },
+        "container": {
+          "properties": {
+            "image": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "labels": {
+              "type": "object"
+            }
+          }
+        },
         "input": {
           "properties": {
             "type": {
@@ -179,6 +128,29 @@
         "ecs": {
           "properties": {
             "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "log": {
+          "properties": {
+            "file": {
+              "properties": {
+                "path": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "offset": {
+              "type": "long"
+            },
+            "level": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "flags": {
               "ignore_above": 1024,
               "type": "keyword"
             }
@@ -272,34 +244,71 @@
             }
           }
         },
+        "mysql": {
+          "properties": {
+            "thread_id": {
+              "type": "long"
+            },
+            "error": {
+              "properties": {}
+            }
+          }
+        },
         "event": {
           "properties": {
+            "code": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "provider": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "created": {
               "type": "date"
             },
+            "timezone": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "kind": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "module": {
               "type": "constant_keyword",
-              "value": "nginx"
+              "value": "mysql"
+            },
+            "category": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "type": {
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "dataset": {
               "type": "constant_keyword",
-              "value": "nginx.error"
+              "value": "mysql.error"
             }
           }
+        },
+        "message": {
+          "type": "match_only_text"
         }
       }
     }
   },
   "composed_of": [
-    "logs-nginx.error@settings",
-    "logs-nginx.error@custom",
-    ".fleet_component_template-1",
+    "rally-mysql.error@settings",
+    "rally-mysql.error@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,
   "_meta": {
     "package": {
-      "name": "nginx"
+      "name": "mysql"
     },
     "managed_by": "ingest-manager",
     "managed": true

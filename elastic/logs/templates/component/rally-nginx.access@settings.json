@@ -3,7 +3,7 @@
     "settings": {
       "index": {
         "lifecycle": {
-          "name": "logs"
+          "name": "rally"
         },
         "codec": "best_compression",
         "mapping": {
@@ -39,32 +39,14 @@
             "host.type",
             "host.os.build",
             "host.os.codename",
+            "input.type",
+            "destination.domain",
             "ecs.version",
-            "event.action",
-            "event.category",
-            "event.code",
-            "event.kind",
-            "event.module",
-            "event.outcome",
-            "event.provider",
-            "event.type",
-            "group.id",
-            "group.name",
-            "host.architecture",
-            "host.domain",
-            "host.hostname",
-            "host.hostname",
-            "host.id",
-            "host.mac",
-            "host.name",
-            "host.os.family",
-            "host.os.full",
-            "host.os.kernel",
-            "host.os.name",
-            "host.os.platform",
-            "process.name",
-            "related.hosts",
-            "related.user",
+            "http.request.method",
+            "http.request.referrer",
+            "http.version",
+            "log.file.path",
+            "source.address",
             "source.as.organization.name",
             "source.geo.city_name",
             "source.geo.continent_name",
@@ -72,20 +54,19 @@
             "source.geo.country_name",
             "source.geo.region_iso_code",
             "source.geo.region_name",
-            "user.effective.name",
-            "user.id",
+            "tags",
+            "url.domain",
+            "url.extension",
+            "url.fragment",
+            "url.scheme",
             "user.name",
-            "system.auth.ssh.method",
-            "system.auth.ssh.signature",
-            "system.auth.ssh.event",
-            "system.auth.sudo.error",
-            "system.auth.sudo.tty",
-            "system.auth.sudo.pwd",
-            "system.auth.sudo.user",
-            "system.auth.sudo.command",
-            "system.auth.useradd.home",
-            "system.auth.useradd.shell",
-            "version"
+            "user_agent.device.name",
+            "user_agent.name",
+            "user_agent.original",
+            "user_agent.os.full",
+            "user_agent.os.name",
+            "user_agent.os.version",
+            "user_agent.version"
           ]
         }
       }
@@ -93,7 +74,7 @@
   },
   "_meta": {
     "package": {
-      "name": "system"
+      "name": "nginx"
     }
   }
 }

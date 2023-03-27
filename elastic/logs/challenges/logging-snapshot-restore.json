@@ -163,7 +163,7 @@
       "operation": {
         "operation-type": "check-datastream",
         "param-source": "datastream-source",
-        "data-stream": "logs-*"
+        "data-stream": "rally-*"
       }
     }
   ]

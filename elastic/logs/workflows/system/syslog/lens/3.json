@@ -1,6 +1,6 @@
 {
   "id": "Set time range to now-24h",
-  "name": "POST /api/lens/existing_fields/logs-*",
+  "name": "POST /api/lens/existing_fields/rally-*",
   "requests": [
     {
       "name": "sleep",

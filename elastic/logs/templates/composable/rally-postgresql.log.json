@@ -1,19 +1,19 @@
 {
   "index_patterns": [
-    "logs-nginx.access-*"
+    "rally-postgresql.log-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-nginx.access-1.2.0"
+        "default_pipeline": "logs-postgresql.log-1.2.0"
         {%- endif %}
       }
     },
     "mappings": {
       "_meta": {
         "package": {
-          "name": "nginx"
+          "name": "postgresql"
         },
         "managed_by": "ingest-manager",
         "managed": true
@@ -54,126 +54,36 @@
             }
           }
         },
-        "nginx": {
+        "process": {
           "properties": {
-            "access": {
-              "properties": {
-                "geoip": {
-                  "properties": {}
-                }
-              }
+            "pid": {
+              "type": "long"
             }
           }
         },
         "log": {
           "properties": {
-            "file": {
-              "properties": {
-                "path": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "offset": {
-              "type": "long"
+            "level": {
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         },
-        "destination": {
-          "properties": {
-            "port": {
-              "type": "long"
-            },
-            "domain": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "ip": {
-              "type": "ip"
-            }
-          }
+        "message": {
+          "type": "match_only_text"
         },
-        "source": {
+        "error": {
           "properties": {
-            "geo": {
-              "properties": {
-                "continent_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "region_iso_code": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "city_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "country_iso_code": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "country_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "location": {
-                  "type": "geo_point"
-                },
-                "region_name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "as": {
-              "properties": {
-                "number": {
-                  "type": "long"
-                },
-                "organization": {
-                  "properties": {
-                    "name": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
-                }
-              }
-            },
-            "address": {
+            "code": {
               "ignore_above": 1024,
               "type": "keyword"
             },
-            "ip": {
-              "type": "ip"
-            }
-          }
-        },
-        "url": {
-          "properties": {
-            "path": {
-              "type": "wildcard"
-            },
-            "extension": {
+            "id": {
               "ignore_above": 1024,
               "type": "keyword"
             },
-            "fragment": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "original": {
-              "type": "wildcard"
-            },
-            "scheme": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "domain": {
-              "ignore_above": 1024,
-              "type": "keyword"
+            "message": {
+              "type": "match_only_text"
             }
           }
         },
@@ -241,16 +151,16 @@
             }
           }
         },
-        "input": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "related": {
           "properties": {
-            "type": {
+            "user": {
               "ignore_above": 1024,
               "type": "keyword"
             }
           }
-        },
-        "@timestamp": {
-          "type": "date"
         },
         "ecs": {
           "properties": {
@@ -260,10 +170,97 @@
             }
           }
         },
-        "related": {
+        "postgresql": {
           "properties": {
-            "ip": {
-              "type": "ip"
+            "log": {
+              "properties": {
+                "transaction_id": {
+                  "type": "long"
+                },
+                "backend_type": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "sql_state_code": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "query": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "session_start_time": {
+                  "type": "date"
+                },
+                "session_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "command_tag": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "query_pos": {
+                  "type": "long"
+                },
+                "internal_query_pos": {
+                  "type": "long"
+                },
+                "client_port": {
+                  "type": "long"
+                },
+                "database": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "virtual_transaction_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "application_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "query_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "hint": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "client_addr": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "context": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "session_line_number": {
+                  "type": "long"
+                },
+                "query_step": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "location": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "detail": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "internal_query": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "timestamp": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             }
           }
         },
@@ -355,52 +352,41 @@
             }
           }
         },
-        "http": {
-          "properties": {
-            "request": {
-              "properties": {
-                "referrer": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "method": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "response": {
-              "properties": {
-                "status_code": {
-                  "type": "long"
-                },
-                "body": {
-                  "properties": {
-                    "bytes": {
-                      "type": "long"
-                    }
-                  }
-                }
-              }
-            },
-            "version": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
         "event": {
           "properties": {
-            "created": {
+            "duration": {
+              "type": "long"
+            },
+            "ingested": {
               "type": "date"
+            },
+            "code": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "kind": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "timezone": {
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "module": {
               "type": "constant_keyword",
-              "value": "nginx"
+              "value": "postgresql"
+            },
+            "category": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "type": {
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "dataset": {
               "type": "constant_keyword",
-              "value": "nginx.access"
+              "value": "postgresql.log"
             }
           }
         },
@@ -411,60 +397,20 @@
               "type": "keyword"
             }
           }
-        },
-        "user_agent": {
-          "properties": {
-            "original": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "os": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "version": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "full": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "device": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "version": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
         }
       }
     }
   },
   "composed_of": [
-    "logs-nginx.access@settings",
-    "logs-nginx.access@custom",
-    ".fleet_component_template-1",
+    "rally-postgresql.log@settings",
+    "rally-postgresql.log@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,
   "_meta": {
     "package": {
-      "name": "nginx"
+      "name": "postgresql"
     },
     "managed_by": "ingest-manager",
     "managed": true

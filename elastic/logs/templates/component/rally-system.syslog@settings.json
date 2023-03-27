@@ -3,7 +3,7 @@
     "settings": {
       "index": {
         "lifecycle": {
-          "name": "logs"
+          "name": "rally"
         },
         "codec": "best_compression",
         "mapping": {
@@ -39,9 +39,27 @@
             "host.type",
             "host.os.build",
             "host.os.codename",
-            "redis.slowlog.cmd",
-            "redis.slowlog.key",
-            "redis.slowlog.args"
+            "ecs.version",
+            "event.action",
+            "event.category",
+            "event.code",
+            "event.kind",
+            "event.module",
+            "event.outcome",
+            "event.provider",
+            "event.type",
+            "host.architecture",
+            "host.domain",
+            "host.hostname",
+            "host.id",
+            "host.mac",
+            "host.name",
+            "host.os.family",
+            "host.os.full",
+            "host.os.kernel",
+            "host.os.name",
+            "host.os.platform",
+            "process.name"
           ]
         }
       }
@@ -49,7 +67,7 @@
   },
   "_meta": {
     "package": {
-      "name": "redis"
+      "name": "system"
     }
   }
 }

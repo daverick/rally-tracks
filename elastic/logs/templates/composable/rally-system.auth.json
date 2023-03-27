@@ -1,19 +1,19 @@
 {
   "index_patterns": [
-    "logs-apache.access-*"
+    "rally-system.auth-*"
   ],
   "template": {
     "settings": {
       "index": {
         {%- if disable_pipelines is not true %}
-        "default_pipeline": "logs-apache.access-1.3.0"
+        "default_pipeline": "logs-system.auth-1.6.4"
         {%- endif %}
       }
     },
     "mappings": {
       "_meta": {
         "package": {
-          "name": "apache"
+          "name": "system"
         },
         "managed_by": "ingest-manager",
         "managed": true
@@ -56,42 +56,12 @@
         },
         "process": {
           "properties": {
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "pid": {
               "type": "long"
-            },
-            "thread": {
-              "properties": {
-                "id": {
-                  "type": "long"
-                }
-              }
-            }
-          }
-        },
-        "log": {
-          "properties": {
-            "file": {
-              "properties": {
-                "path": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "offset": {
-              "type": "long"
-            },
-            "level": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "destination": {
-          "properties": {
-            "domain": {
-              "ignore_above": 1024,
-              "type": "keyword"
             }
           }
         },
@@ -143,13 +113,8 @@
                 }
               }
             },
-            "address": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "domain": {
-              "ignore_above": 1024,
-              "type": "keyword"
+            "port": {
+              "type": "long"
             },
             "ip": {
               "type": "ip"
@@ -166,29 +131,7 @@
         "message": {
           "type": "match_only_text"
         },
-        "url": {
-          "properties": {
-            "path": {
-              "type": "wildcard"
-            },
-            "extension": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "original": {
-              "type": "wildcard"
-            },
-            "domain": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "query": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "tags": {
+        "version": {
           "ignore_above": 1024,
           "type": "keyword"
         },
@@ -252,40 +195,73 @@
             }
           }
         },
-        "input": {
-          "properties": {
-            "type": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
         "@timestamp": {
           "type": "date"
         },
-        "file": {
+        "system": {
           "properties": {
-            "path": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "apache": {
-          "properties": {
-            "access": {
+            "auth": {
               "properties": {
-                "ssl": {
+                "ssh": {
                   "properties": {
-                    "cipher": {
+                    "geoip": {
+                      "properties": {}
+                    },
+                    "method": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
-                    "protocol": {
+                    "dropped_ip": {
+                      "type": "ip"
+                    },
+                    "signature": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "event": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     }
                   }
+                },
+                "sudo": {
+                  "properties": {
+                    "tty": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "error": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "pwd": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "user": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "command": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "useradd": {
+                  "properties": {
+                    "shell": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "home": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "groupadd": {
+                  "properties": {}
                 }
               }
             }
@@ -299,13 +275,29 @@
             }
           }
         },
+        "related": {
+          "properties": {
+            "hosts": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "ip": {
+              "type": "ip"
+            },
+            "user": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
         "data_stream": {
           "properties": {
             "namespace": {
               "type": "constant_keyword"
             },
             "type": {
-              "type": "constant_keyword"
+              "type": "constant_keyword",
+              "value": "logs"
             },
             "dataset": {
               "type": "constant_keyword"
@@ -352,6 +344,10 @@
                 "platform": {
                   "ignore_above": 1024,
                   "type": "keyword"
+                },
+                "full": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -387,58 +383,22 @@
             }
           }
         },
-        "http": {
-          "properties": {
-            "request": {
-              "properties": {
-                "referrer": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "method": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "response": {
-              "properties": {
-                "status_code": {
-                  "type": "long"
-                },
-                "body": {
-                  "properties": {
-                    "bytes": {
-                      "type": "long"
-                    }
-                  }
-                }
-              }
-            },
-            "version": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
-        "tls": {
-          "properties": {
-            "cipher": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "version": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "version_protocol": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            }
-          }
-        },
         "event": {
           "properties": {
+            "sequence": {
+              "type": "long"
+            },
+            "ingested": {
+              "type": "date"
+            },
+            "code": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "provider": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "created": {
               "type": "date"
             },
@@ -448,15 +408,23 @@
             },
             "module": {
               "type": "constant_keyword",
-              "value": "apache"
+              "value": "system"
+            },
+            "action": {
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "category": {
               "ignore_above": 1024,
               "type": "keyword"
             },
+            "type": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "dataset": {
               "type": "constant_keyword",
-              "value": "apache.access"
+              "value": "system.auth"
             },
             "outcome": {
               "ignore_above": 1024,
@@ -466,47 +434,31 @@
         },
         "user": {
           "properties": {
+            "effective": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
             "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "id": {
               "ignore_above": 1024,
               "type": "keyword"
             }
           }
         },
-        "user_agent": {
+        "group": {
           "properties": {
-            "original": {
-              "ignore_above": 1024,
-              "type": "keyword"
-            },
-            "os": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "version": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "full": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
             "name": {
               "ignore_above": 1024,
               "type": "keyword"
             },
-            "device": {
-              "properties": {
-                "name": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
-            },
-            "version": {
+            "id": {
               "ignore_above": 1024,
               "type": "keyword"
             }
@@ -516,15 +468,15 @@
     }
   },
   "composed_of": [
-    "logs-apache.access@settings",
-    "logs-apache.access@custom",
-    ".fleet_component_template-1",
+    "rally-system.auth@settings",
+    "rally-system.auth@custom",
+    ".fleet_component_template-1-rally",
     "track-custom-mappings"
   ],
   "priority": 200,
   "_meta": {
     "package": {
-      "name": "apache"
+      "name": "system"
     },
     "managed_by": "ingest-manager",
     "managed": true

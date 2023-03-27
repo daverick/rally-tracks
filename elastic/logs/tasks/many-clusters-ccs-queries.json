@@ -4,7 +4,7 @@
     "time-period": {{ p_query_time_period }},
     "warmup-time-period": {{ p_query_warmup_time_period }},
     "tasks": [
-      {% set target_index = "logs-*,remote*:logs-*" %}
+      {% set target_index = "rally-*,remote*:rally-*" %}
       {% for workflow in p_query_workflows %}
       {
         "name": {{ workflow | tojson }},
